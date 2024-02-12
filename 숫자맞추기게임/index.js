@@ -64,7 +64,7 @@ function play() {
 function reset() {
    userInput.value = ''
    pickRandomNumber()
-   resultArea.textContent = '결과값이 여기 나옵니다!'
+   resultArea.textContent = 'Guess My Number!'
    chances = 5 // 찬스 초기화
    gameOver = false // 게임 오버 여부 초기화
    playButton.disabled = false // 플레이 버튼 활성화

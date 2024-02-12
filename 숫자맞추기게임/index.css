@@ -1,1 +1,105 @@
 /* 반응형 ui로 구현하기 */
+.wrap {
+   background-image: url(images/Num2.jpg);
+   background-size: cover;
+   font-family: 'Black Han Sans', sans-serif;
+   height: 100%;
+   width: 100%;
+}
+
+.wrap .container {
+   min-height: 100vh;
+   min-width: 100vw;
+}
+
+.wrap .container .row:not(:nth-child(2)) {
+   height: 25vh;
+   width: 100vw;
+}
+
+.wrap .container .row:nth-child(2) {
+   min-height: 50vh;
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+}
+
+.wrap .container .row:nth-child(2) .col-8 {
+   min-height: 50vh;
+   background: rgba(253, 253, 253, 0.92);
+   border: 1vw solid rgb(0, 0, 0);
+   border-radius: 1vw;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.col-8 h1 {
+   font-size: 7vw;
+   text-align: center;
+   text-shadow: -0.5vw 0.5vh rgba(253, 230, 103, 0.797);
+   color: rgb(8, 2, 55);
+   padding: 0 3vw;
+}
+
+.col-8 .input-area {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding: 0 3vw;
+}
+
+.input-area #result-area {
+   font-size: 3vw;
+   font-family: 'Black Han Sans', sans-serif;
+   /* text-shadow: -0.3vw 0.3vh rgb(253, 231, 103); */
+   color: rgb(208, 72, 72);
+   margin: 0;
+}
+
+.input-area #chance-area {
+   font-size: 3vw;
+   font-family: 'Black Han Sans', sans-serif;
+   color: rgb(208, 72, 72);
+   margin: 0;
+   padding-bottom: 2vw;
+}
+
+.input-area #user-input {
+   width: 30vw;
+   height: 5vw;
+   font-size: 2vw;
+   text-align: center;
+}
+
+.button-area {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 2vw 0;
+}
+
+.button-area #play-button,
+#reset-button {
+   min-width: 15vw;
+   height: 4vw;
+   margin: 0 1vw;
+   font-size: 3vw;
+   text-align: center;
+   font-weight: bolder;
+   color: #fff;
+}
+
+.button-area #play-button {
+   border: 1px solid rgb(9, 86, 219);
+   border-radius: 25px;
+   background: rgb(9, 86, 219);
+}
+
+.button-area #reset-button {
+   border: 1px solid rgb(187, 35, 35);
+   border-radius: 25px;
+   background: rgb(187, 35, 35);
+}
