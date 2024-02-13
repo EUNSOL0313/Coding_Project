@@ -1,0 +1,44 @@
+.wrap {
+   width: 200vh;
+   height: 200vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   font-family: 'Poor Story', system-ui;
+   background: url(images/num3.jpg);
+   background-size: cover;
+}
+
+.container {
+   height: 80%;
+   border: 2vh solid white;
+   border-radius: 2vh;
+   text-align: center;
+   /* background-color: rgba(255, 192, 203, 0.723); */
+   background: rgba(250, 139, 157, 0.723);
+}
+
+.border-line {
+   padding-bottom: 2vh;
+   display: flex;
+   justify-content: center;
+}
+
+.button__area > #play-button {
+   height: 8vh;
+   width: 10vw;
+   margin-top: 5vh;
+   border-radius: 2vw;
+   background: blue;
+   color: white;
+   font-size: 2vw;
+}
+.button__area > #reset-button {
+   height: 8vh;
+   width: 10vw;
+   margin-top: 5vh;
+   border-radius: 2vw;
+   background: red;
+   color: white;
+   font-size: 2vw;
+}
