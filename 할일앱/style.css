@@ -16,6 +16,10 @@ body {
       rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
+.input-area {
+   display: flex;
+   justify-content: space-between;
+}
 .task-area {
    border: 1px solid lightgray;
 }
@@ -24,24 +28,36 @@ body {
    display: flex;
    border-bottom: 1px solid lightgray;
    position: relative;
+   align-items: center;
 }
 
-.task-tabs div {
+nav a {
    padding: 1em;
+   font-size: 1.5em;
+   font-weight: bolder;
+   text-decoration: none;
+   color: black;
 }
 
 #under-line {
-   height: 4px;
+   height: 4px !important;
    background-color: pink;
    position: absolute;
-   width: 80px;
+   width: 0px;
+   top: 0px;
    left: 0px;
-   top: 52px;
    padding: 0px;
+   /* transition: 0.5s; */
 }
 
 .task {
    display: flex;
    justify-content: space-between;
    padding: 1em;
+}
+.task-done2 {
+   background-color: lightgray;
+}
+.task-done {
+   text-decoration: line-through;
 }
