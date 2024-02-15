@@ -13,87 +13,152 @@ let taskInput = document.querySelector('#task-input')
 let addButton = document.querySelector('#add-button')
 let taskList = []
 let underLine = document.querySelector('#under-line')
-let navTaskTabs = document.querySelectorAll('nav a')
+let tabs = document.querySelectorAll('.task-tabs a')
+let mode = 'all' //전역변수로 변경해줘여햠 초기값은 모두이기때문에
+let filterList = [] //전역변수로 변경
+let currentDate = getCurrentDate()
+document.querySelector('#date').textContent = currentDate
 
-navTaskTabs.forEach((menu) =>
-   menu.addEventListener('click', (e) => taskTabsIndicator(e.currentTarget))
-) //e:이벤트
+// let navTaskTabs = document.querySelectorAll('nav a')
 
-addButton.addEventListener('click', addTask)
+// navTaskTabs.forEach((menu) =>
+//    menu.addEventListener('click', (e) => taskTabsIndicator(e.currentTarget))
+// ) //e:이벤트
+
+//언더라인
+tabs.forEach((menu) =>
+   menu.addEventListener('click', (e) => horizontalIndicator(e))
+)
+function horizontalIndicator(e) {
+   underLine.style.left = e.currentTarget.offsetLeft + 'px'
+   underLine.style.width = e.currentTarget.offsetWidth + 'px'
+   underLine.style.top =
+      e.currentTarget.offsetTop + (e.currentTarget.offsetHeight - 4) + 'px'
+}
+
+for (let i = 1; i < tabs.length; i++) {
+   tabs[i].addEventListener('click', (e) => {
+      filter(e)
+   })
+}
+
+// task 공백방지
+addButton.addEventListener('click', (e) => {
+   if (taskInput.value.length == 0) {
+      alert('할일을 입력해주세요.')
+   } else {
+      addTask()
+   }
+})
+
+// 엔터누름 할일추가
+taskInput.addEventListener('keyup', (e) => {
+   if (e.key === 'Enter') {
+      if (taskInput.value.length !== 0) {
+         addTask()
+      } else {
+         alert('할일을 입력해주세요.')
+      }
+   }
+})
+
+// 현재 날짜 불러오기
+function getCurrentDate() {
+   return new Date().toLocaleDateString()
+}
 
 function addTask() {
-   if (!taskInput.value) {
-      alert('할 일을 입력해 주세요!')
-      return
-   }
-
    let task = {
       id: randomIDGenerate(),
       taskContent: taskInput.value,
       isComplete: false,
    }
    taskList.push(task)
+   taskInput.value = '' // 입력한 값 초기화
    render() //아이템 그려주기
-   taskInput.value = '' //할일 입력 후 입력창 공백만들기
 }
 
 function render() {
+   let list = []
+   if (mode === 'all') {
+      // all: taskList 보여줌
+      list = taskList
+   } else if (mode === 'ongoing' || mode === 'done') {
+      //ongoing, done : filterList 보여줘야함
+      list = filterList
+   }
+
    let resultHTML = '' //스트링변수 생성
-   for (let i = 0; i < taskList.length; i++) {
-      if (taskList[i].isComplete == true) {
-         resultHTML += `<div class="task task-done2">
-          
-          <div class = "task-done">${taskList[i].taskContent}</div>
+
+   for (let i = 0; i < list.length; i++) {
+      if (list[i].isComplete == true) {
+         resultHTML += `<div class="task task-done-box">
+          <div class = "task-done">${list[i].taskContent}</div>
           <div>
-            <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-circle-check" style="color: #0752e9; font-size:X-large;"></i></button>
-      <button onclick="deleteTask('${taskList[i].id}')"> <i class="fa-solid fa-circle-minus" style="color: #f80d0d; font-size:X-large;"></i></button >
+            <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-circle-check" style="color: #0752e9; font-size:X-large;"></i></button>
+            <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-circle-minus" style="color: #f80d0d; font-size:X-large;"></i></button>
           </div >
         </div > `
       } else {
          resultHTML += `<div class="task">
-          
-          <div>${taskList[i].taskContent}</div>
+          <div>${list[i].taskContent}</div>
           <div>
-            <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-regular fa-circle-check" style="color: #0752e9; font-size:X-large;"></i></button>
-      <button onclick="deleteTask('${taskList[i].id}')"> <i class="fa-solid fa-circle-minus" style="color: #f80d0d; font-size:X-large;"></i></button >
+            <button onclick="toggleComplete('${list[i].id}')"><i class="fa-regular fa-circle-check" style="color: #0752e9; font-size:X-large;"></i></button>
+      <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-circle-minus" style="color: #f80d0d; font-size:X-large;"></i></button >
           </div >
         </div > `
       }
+      taskInput.value = ''
    }
 
-   document.getElementById('task-board').innerHTML = resultHTML
+   document.getElementById('task-board').innerHTML = resultHTML // resultHTML을 붙여넣을거다(innerHTML)
 }
 
 function toggleComplete(id) {
    for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].id == id) {
-         taskList[i].isComplete = !taskList[i].isComplete
+         taskList[i].isComplete = !taskList[i].isComplete //true->!taskList[i].isComplete : 스위치 처럼 체크되돌리기할때사용
          break //for문 종료
       }
    }
-   render() // 랜더 꼭 실행해줘야함
-   console.log(taskList)
+
+   console.log('체크리스트', taskList)
+   filter()
 }
+
 function deleteTask(id) {
    for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].id == id) {
-         taskList.splice(i, 1) //splice(시작점에서,몇개아이템)
+         taskList.splice(i, 1)
          break
       }
    }
-   //배열에 있는 아이템을 삭제하는 방법
-
-   //  console.log('삭제하자', id) 처음 삭제 확인
-   //  console.log(taskList) 확인하고 ui업뎃필수
-   render() //값업뎃 확인하고 ui업뎃하기
+   filter()
 }
 
-function taskTabsIndicator(e) {
-   underLine.style.left = e.offsetLeft + 'px'
-   underLine.style.width = e.offsetWidth + 'px'
-   underLine.style.top = e.offsetTop + e.offsetHeight + 'px'
+function filter(e) {
+   filterList = []
+   if (e) {
+      mode = e.target.id
+   }
+   if (mode == 'all') {
+      render()
+   } else if (mode === 'ongoing') {
+      for (let i = 0; i < taskList.length; i++) {
+         if (taskList[i].isComplete == false) {
+            filterList.push(taskList[i])
+         }
+      }
+      render() //ui업뎃꼭
+   } else if (mode === 'done') {
+      for (let i = 0; i < taskList.length; i++) {
+         if (taskList[i].isComplete == true) {
+            filterList.push(taskList[i])
+         }
+      }
+      render()
+   }
 }
-
 function randomIDGenerate() {
-   return '_' + Math.random().toString(36).substr(2, 9)
-} //이런 과정을 통해서 id생성됨 return은 어떤 함수의 결과물이 다른곳에서 쓰일때 사용, 데이터값에 ID값 부여하는거 아주 중요
+   return '_' + Math.random().toString(36).replace(/\./g, '')
+}

@@ -4,6 +4,12 @@
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width" />
       <title>할일앱</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Orbit&display=swap"
+         rel="stylesheet"
+      />
       <link
          rel="stylesheet"
          href="./fontawesome-free-6.5.1-web/css/all.min.css"
@@ -20,7 +26,19 @@
 
    <body>
       <div class="container">
-         <h1>To Do List</h1>
+         <header class="top">
+            <h1>📒 To Do List 🖍️</h1>
+            <div class="today">
+               <div>
+                  <i
+                     class="fa-solid fa-calendar-days fa-xl"
+                     style="color: #fc2803"
+                  ></i>
+               </div>
+               <p id="date">Today</p>
+            </div>
+         </header>
+
          <section class="input-area">
             <input
                class="form-control form-control-lg"
@@ -28,25 +46,24 @@
                type="text"
                placeholder="오늘의 할 일을 입력하세요 💬💬💬"
                aria-label=".form-control-lg example"
-               style="width: 95%"
+               style="width: 94%"
             />
             <button
                type="button"
                class="btn btn-outline-secondary"
                id="add-button"
-               style="width: 4vw; background-color: #010409"
+               style="background-color: #010409"
             >
-               <i class="fa-solid fa-plus" style="color: #fff"></i>
+               <i class="fa-solid fa-plus fa-lg" style="color: #ffffff"></i>
             </button>
          </section>
-
-         <nav class="task-tabs">
-            <div id="under-line"></div>
-            <a href="#">모두</a>
-            <a href="#">진행중</a>
-            <a href="#">끝남</a>
-         </nav>
          <section class="task-area">
+            <nav class="task-tabs">
+               <div id="under-line"></div>
+               <a href="#" id="all">전체</a>
+               <a href="#" id="ongoing">진행중</a>
+               <a href="#" id="done">완료</a>
+            </nav>
             <div id="task-board">
                <!-- <div class="task">
           <div>집가기</div>
