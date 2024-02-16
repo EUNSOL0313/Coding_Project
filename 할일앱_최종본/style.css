@@ -2,13 +2,13 @@
 body {
    margin: 0;
    /* body 기본 margin: 8px;설정되어있음 */
-   background-image: url(images/background.webp);
+   background-image: url(images/bg8.jpg);
    background-repeat: no-repeat;
    background-size: cover;
 }
 
 .container {
-   background-color: rgba(255, 255, 255, 0.56);
+   background-color: rgba(209, 141, 171, 0.64);
    min-height: 100vh;
    /* vh:내가 보는 화면의 하이트 100vh=100% */
    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
@@ -23,6 +23,8 @@ body {
 .top h1 {
    margin-top: 1em;
    font-family: 'Orbit', sans-serif;
+   font-weight: bolder;
+   text-shadow: 1px 1px 1px lightgray;
 }
 .top > .today {
    display: flex;
@@ -33,9 +35,11 @@ body {
    margin-top: 2px;
    padding-top: 15px;
    padding-right: 10px;
+   text-shadow: 1px 1px 1px white;
 }
 .today > p {
    font-size: 1.5rem;
+   text-shadow: 1px 1px 1px lightgray;
 }
 .input-area {
    display: flex;
@@ -66,7 +70,7 @@ nav div {
 
 #under-line {
    height: 4px !important;
-   background-color: pink;
+   background-color: rgb(50, 96, 222);
    position: absolute;
    width: 80px;
    top: 80px;
