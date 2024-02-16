@@ -13,11 +13,12 @@ let taskInput = document.querySelector('#task-input')
 let addButton = document.querySelector('#add-button')
 let taskList = []
 let underLine = document.querySelector('#under-line')
-let tabs = document.querySelectorAll('.task-tabs a')
+let tabs = document.querySelectorAll('.task-tabs div')
 let mode = 'all' //전역변수로 변경해줘여햠 초기값은 모두이기때문에
 let filterList = [] //전역변수로 변경
+let date = document.querySelector('#date')
 let currentDate = getCurrentDate()
-document.querySelector('#date').textContent = currentDate
+date.textContent = currentDate // 현재 날짜 불러오고 현재 날짜 출력하기
 
 // let navTaskTabs = document.querySelectorAll('nav a')
 
@@ -48,6 +49,7 @@ addButton.addEventListener('click', (e) => {
       alert('할일을 입력해주세요.')
    } else {
       addTask()
+      filter()
    }
 })
 
@@ -56,6 +58,7 @@ taskInput.addEventListener('keyup', (e) => {
    if (e.key === 'Enter') {
       if (taskInput.value.length !== 0) {
          addTask()
+         filter()
       } else {
          alert('할일을 입력해주세요.')
       }
@@ -83,9 +86,12 @@ function render() {
    if (mode === 'all') {
       // all: taskList 보여줌
       list = taskList
-   } else if (mode === 'ongoing' || mode === 'done') {
+      console.log(mode)
+   } else {
       //ongoing, done : filterList 보여줘야함
+      // else if (mode === 'ongoing' || mode === 'done')
       list = filterList
+      console.log(mode)
    }
 
    let resultHTML = '' //스트링변수 생성
@@ -104,7 +110,7 @@ function render() {
           <div>${list[i].taskContent}</div>
           <div>
             <button onclick="toggleComplete('${list[i].id}')"><i class="fa-regular fa-circle-check" style="color: #0752e9; font-size:X-large;"></i></button>
-      <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-circle-minus" style="color: #f80d0d; font-size:X-large;"></i></button >
+            <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-circle-minus" style="color: #f80d0d; font-size:X-large;"></i></button >
           </div >
         </div > `
       }
@@ -141,24 +147,47 @@ function filter(e) {
    if (e) {
       mode = e.target.id
    }
-   if (mode == 'all') {
-      render()
+   if (mode === 'all') {
    } else if (mode === 'ongoing') {
       for (let i = 0; i < taskList.length; i++) {
-         if (taskList[i].isComplete == false) {
+         if (taskList[i].isComplete === false) {
             filterList.push(taskList[i])
          }
       }
-      render() //ui업뎃꼭
    } else if (mode === 'done') {
       for (let i = 0; i < taskList.length; i++) {
-         if (taskList[i].isComplete == true) {
+         if (taskList[i].isComplete === true) {
             filterList.push(taskList[i])
          }
       }
-      render()
    }
+   render()
 }
 function randomIDGenerate() {
    return '_' + Math.random().toString(36).replace(/\./g, '')
 }
+// //function filter(e) {
+//   if (e) {
+//     mode = e.target.id;
+//     underLine.style.width = e.target.offsetWidth + "px";
+//     underLine.style.left = e.target.offsetLeft + "px";
+//     underLine.style.top =
+//       e.target.offsetTop + (e.target.offsetHeight - 4) + "px";
+//   } // 진행중 상태에서 끝남으로 표시하면 바로 사라지는 부분은 event가 없음 그래서 조건추가
+
+//   filterList = [];
+//   if (mode === "ongoing") {
+//     for (let i = 0; i < taskList.length; i++) {
+//       if (taskList[i].isComplete == false) {
+//         filterList.push(taskList[i]);
+//       }
+//     }
+//   } else if (mode === "done") {
+//     for (let i = 0; i < taskList.length; i++) {
+//       if (taskList[i].isComplete) {
+//         filterList.push(taskList[i]);
+//       }
+//     }
+//   }
+//   render();
+// }

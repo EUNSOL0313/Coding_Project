@@ -56,7 +56,7 @@ body {
    font-family: 'Orbit', sans-serif;
 }
 
-nav a {
+nav div {
    padding: 1em;
    font-size: 1.5em;
    font-weight: bolder;
@@ -85,14 +85,41 @@ nav a {
 .task-done {
    text-decoration: line-through;
 }
-.task-tabs a {
+.task-tabs div {
    cursor: pointer;
 }
-.task-done-box,
+
 .task {
    border-bottom: 1px solid lightgray;
    font-family: 'Orbit', sans-serif;
    font-size: 1.5rem;
 }
+#task-board button {
+   border: none;
+   background-color: transparent;
+}
 
 /* how to change cursor on div tag css 구글링 */
+
+@media (max-width: 768px) {
+   .top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+   }
+   .top .today {
+      margin-top: 0.5em;
+      text-align: center;
+      font-size: 0.8rem;
+   }
+   .top .today p {
+      font-size: 1.3rem;
+   }
+   .input-area input {
+      margin-right: 0.5em;
+   }
+   .input-area input::placeholder {
+      color: rgb(12, 123, 214);
+      content: '할 일 입력하기 💬';
+   }
+}
