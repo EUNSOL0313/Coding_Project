@@ -166,28 +166,3 @@ function filter(e) {
 function randomIDGenerate() {
    return '_' + Math.random().toString(36).replace(/\./g, '')
 }
-// //function filter(e) {
-//   if (e) {
-//     mode = e.target.id;
-//     underLine.style.width = e.target.offsetWidth + "px";
-//     underLine.style.left = e.target.offsetLeft + "px";
-//     underLine.style.top =
-//       e.target.offsetTop + (e.target.offsetHeight - 4) + "px";
-//   } // 진행중 상태에서 끝남으로 표시하면 바로 사라지는 부분은 event가 없음 그래서 조건추가
-
-//   filterList = [];
-//   if (mode === "ongoing") {
-//     for (let i = 0; i < taskList.length; i++) {
-//       if (taskList[i].isComplete == false) {
-//         filterList.push(taskList[i]);
-//       }
-//     }
-//   } else if (mode === "done") {
-//     for (let i = 0; i < taskList.length; i++) {
-//       if (taskList[i].isComplete) {
-//         filterList.push(taskList[i]);
-//       }
-//     }
-//   }
-//   render();
-// }
