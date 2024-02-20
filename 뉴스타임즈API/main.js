@@ -14,5 +14,7 @@ const getLatestNews = async () => {
    console.log('rrr', response) //rrr Promise { <pending> } -> api는 시간이 걸리는 작업
    // await하면 기다리게 해줌 비동기함수 - async랑 꼭 같이 사용해야함
    //데이터 네트워크(인터넷)관련은 시간을 좀 기다려줘야함(await)
+   console.log('ddd', data)
+   console.log('aaa', news)
 }
 getLatestNews()
