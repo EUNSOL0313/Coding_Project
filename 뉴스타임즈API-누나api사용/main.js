@@ -3,13 +3,12 @@ let news = [] //전역변수로 선언 후 아래 함수에서는 재할당하�
 
 const getLatestNews = async () => {
    //async-await함수
-   // const url = new URL(
-   //  `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
-
-   // )
    const url = new URL(
-      `https://https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}` //누나api
+      `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines=${API_KEY}`
    )
+   //let url = new URL(
+   // `https://[내꺼 netlify 주소].app/top-headlines?country=kr&apiKey=${API_KEY}`
+   //)
    //  console.log('uuu', url)
    const response = await fetch(url) //fetch는 url을 호출해서 인터넷을 긁어 올 수 있는 함수 fetch가 끝나면 response를 받을 수있음
    const data = await response.json() //json :객체를 텍스트화 시킨 데이터 타입
