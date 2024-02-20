@@ -1,7 +1,7 @@
 const API_KEY = `9f293c6208014351b2559d020efc8cc3`
 const url1 = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
-const url2 = `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines`
-//'https://https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr' //누나api
+const url2 = `https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr`
+//http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines //누나api
 let news = [] //전역변수로 선언 후 아래 함수에서는 재할당하기
 
 const getLatestNews = async () => {
