@@ -1,4 +1,4 @@
-const API_KEY = `9f293c6208014351b2559d020efc8cc3`
+// const API_KEY = `9f293c6208014351b2559d020efc8cc3`
 let news = [] //전역변수로 선언 후 아래 함수에서는 재할당하기
 
 const getLatestNews = async () => {
@@ -8,7 +8,7 @@ const getLatestNews = async () => {
 
    // )
    const url = new URL(
-      `https://https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}` //누나api
+      `https://https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr` //누나api
    )
    //  console.log('uuu', url)
    const response = await fetch(url) //fetch는 url을 호출해서 인터넷을 긁어 올 수 있는 함수 fetch가 끝나면 response를 받을 수있음

@@ -1,10 +1,10 @@
-const API_KEY = `9f293c6208014351b2559d020efc8cc3`
+//const API_KEY = `9f293c6208014351b2559d020efc8cc3`
 let news = [] //전역변수로 선언 후 아래 함수에서는 재할당하기
 
 const getLatestNews = async () => {
    //async-await함수
    const url = new URL(
-      `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines=${API_KEY}`
+      `https://https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr`
    )
    //let url = new URL(
    // `https://[내꺼 netlify 주소].app/top-headlines?country=kr&apiKey=${API_KEY}`
