@@ -9,7 +9,7 @@ let newsList = [] //전역변수로 선언 후 아래 함수에서는 재할당�
 
 const getLatestNews = async () => {
    //async-await함수
-   const requestUrl = new URL(url1)
+   const requestUrl = new URL(url2)
    console.log('uuu', requestUrl)
 
    const response = await fetch(requestUrl) //fetch는 url을 호출해서 인터넷을 긁어 올 수 있는 함수 fetch가 끝나면 response를 받을 수있음
