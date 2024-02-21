@@ -62,7 +62,7 @@ const render = () => {
                         : news.description
                   }
                </p>
-               <div>${news.rights || 'no source'}  ${moment(
+               <div>${news.source.name || 'no source'}  ${moment(
             news.published_date
          ).fromNow()}</div>
             </div>
