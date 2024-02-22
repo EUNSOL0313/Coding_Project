@@ -24,7 +24,7 @@ const fetchDataAndRender = async (requestUrl) => {
 
 const getLatestNews = async () => {
    //async-await함수
-   const requestUrl = new URL(url1)
+   const requestUrl = new URL(url2)
    console.log('uuu', requestUrl)
    const response = await fetch(requestUrl) //fetch는 url을 호출해서 인터넷을 긁어 올 수 있는 함수 fetch가 끝나면 response를 받을 수있음
    const data = await response.json() //json :객체를 텍스트화 시킨 데이터 타입
@@ -41,12 +41,12 @@ const getLatestNews = async () => {
 const getNewsByCategory = async (event) => {
    const category = event.target.textContent.toLowerCase()
    console.log('category', category) //카테고리 버튼 이벤트
+   // const requestUrl = new URL(
+   //    `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+   // )
    const requestUrl = new URL(
-      `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+      `https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr&category=${category}`
    )
-   //  const requestUrl = new URL(
-   //     `https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr&category=${category}`
-   //)
 
    // const response = await fetch(requestUrl)
    // const data = await response.json()
@@ -58,12 +58,12 @@ const getNewsByCategory = async (event) => {
 const getNewsByKeyword = async () => {
    const keyword = document.querySelector('#search-input').value
    console.log('keyword', keyword)
+   // const requestUrl = new URL(
+   //    `https://newsapi.org/v2/top-headlines?q=${keyword}&country=kr&apiKey=${API_KEY}`
+   // )
    const requestUrl = new URL(
-      `https://newsapi.org/v2/top-headlines?q=${keyword}&country=kr&apiKey=${API_KEY}`
+      `https://dazzling-peony-652d49.netlify.app/top-headlines?q=${keyword}&country=kr`
    )
-   //  const requestUrl = new URL(
-   //     `https://dazzling-peony-652d49.netlify.app/top-headlines?q=${keyword}&country=kr`
-   //)
 
    //    const response = await fetch(requestUrl)
    //    const data = await response.json()
