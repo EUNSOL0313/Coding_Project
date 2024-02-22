@@ -1,17 +1,31 @@
 const API_KEY = `9f293c6208014351b2559d020efc8cc3`
-const url1 = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+const url1 = `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
 const url2 = `https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr`
 //http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines //누나api
 let newsList = [] //전역변수로 선언 후 아래 함수에서는 재할당하기
+const menus = document.querySelectorAll('.menus button') // 버튼 이벤트 카테고리
+console.log('mmm', menus)
+menus.forEach((menu) =>
+   menu.addEventListener('click', (event) => getNewsByCategory(event))
+)
 
-//1. moment('20111031', 'YYYYMMDD').fromNow()<- 날짜랜더
-//2. 노소스표시
+const fetchDataAndRender = async (requestUrl) => {
+   // try/캐치 및 에러 부분 챗gpt도움받아 해결 : 반복되는 코드 한곳에서관리
+   try {
+      const response = await fetch(requestUrl)
+      const data = await response.json()
+      console.log('Data fetched:', data)
+      newsList = data.articles
+      render()
+   } catch (error) {
+      console.error('Error fetching data:', error)
+   }
+}
 
 const getLatestNews = async () => {
    //async-await함수
-   const requestUrl = new URL(url2)
+   const requestUrl = new URL(url1)
    console.log('uuu', requestUrl)
-
    const response = await fetch(requestUrl) //fetch는 url을 호출해서 인터넷을 긁어 올 수 있는 함수 fetch가 끝나면 response를 받을 수있음
    const data = await response.json() //json :객체를 텍스트화 시킨 데이터 타입
    //let news = data.article; //함수내에서 먼저 정의하고 확인 후 계속 쓸 변수이기때문에  전역변수로 변경하기
@@ -23,23 +37,50 @@ const getLatestNews = async () => {
    console.log('ddd', data)
    console.log('aaa', newsList)
 }
-const openSearchBox = () => {
-   let inputArea = document.getElementById('input-area')
-   if (inputArea.style.display === 'inline') {
-      inputArea.style.display = 'none'
-   } else {
-      inputArea.style.display = 'inline'
-   }
+
+const getNewsByCategory = async (event) => {
+   const category = event.target.textContent.toLowerCase()
+   console.log('category', category) //카테고리 버튼 이벤트
+   const requestUrl = new URL(
+      `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+   )
+   // const response = await fetch(requestUrl)
+   // const data = await response.json()
+   // console.log('DDD', data)
+   // newsList = data.articles
+   // render()
+   await fetchDataAndRender(requestUrl) //함수앞에 await이 안써줘서 에러났었음
+}
+const getNewsByKeyword = async () => {
+   const keyword = document.querySelector('#search-input').value
+   console.log('keyword', keyword)
+   const requestUrl = new URL(
+      `https://newsapi.org/v2/top-headlines?q=${keyword}&country=kr&apiKey=${API_KEY}`
+   )
+   //    const response = await fetch(requestUrl)
+   //    const data = await response.json()
+   //    console.log('keyword data', data)
+   //    newsList = data.articles
+   //    render()
+   await fetchDataAndRender(requestUrl)
 }
 
-const searchNews = () => {
-   let keyword = document.getElementById('search-input').value
-   page = 1
-   url = new URL(
-      `https://api.newscatcherapi.com/v2/search?q=${keyword}&page_size=10`
-   )
-   getNews()
+// const openSearchBox = () => {
+//    let inputArea = document.getElementById('input-area')
+//    if (inputArea.style.display === 'inline') {
+//       inputArea.style.display = 'none'
+//    } else {
+//       inputArea.style.display = 'inline'
+//    }
+// }
+//축약
+
+const openSearchBox = () => {
+   let inputArea = document.getElementById('input-area')
+   inputArea.style.display =
+      inputArea.style.display === 'inline' ? 'none' : 'inline'
 }
+
 const render = () => {
    //render는 newsList가 확정되어야 쓸수 있다.
    const newsHTML = newsList
@@ -69,7 +110,7 @@ const render = () => {
          </div>`
       ) //뭘보여줄건데
       .join(' ')
-   console.log(newsHTML)
+   //console.log(newsHTML)
    document.querySelector('#news-board').innerHTML = newsHTML //어디에 뉴스를 붙일지!
    // array to string 콤마 없애기 join map이랑 같이 사용 "공백"
    //<div>${news.source.name}*${news.publishesAt}</div>
@@ -84,3 +125,7 @@ const openNav = () => {
 const closeNav = () => {
    document.getElementById('mySidenav').style.width = '0'
 }
+
+//1.메뉴들의 버튼들에 클릭 이벤트 주기
+//2. 카테고리별 뉴스 가져오기
+//3. 그 뉴스를 보여주기
