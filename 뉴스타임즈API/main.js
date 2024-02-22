@@ -44,6 +44,10 @@ const getNewsByCategory = async (event) => {
    const requestUrl = new URL(
       `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
    )
+   //  const requestUrl = new URL(
+   //     `https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr&category=${category}`
+   //)
+
    // const response = await fetch(requestUrl)
    // const data = await response.json()
    // console.log('DDD', data)
@@ -57,6 +61,10 @@ const getNewsByKeyword = async () => {
    const requestUrl = new URL(
       `https://newsapi.org/v2/top-headlines?q=${keyword}&country=kr&apiKey=${API_KEY}`
    )
+   //  const requestUrl = new URL(
+   //     `https://dazzling-peony-652d49.netlify.app/top-headlines?q=${keyword}&country=kr`
+   //)
+
    //    const response = await fetch(requestUrl)
    //    const data = await response.json()
    //    console.log('keyword data', data)
