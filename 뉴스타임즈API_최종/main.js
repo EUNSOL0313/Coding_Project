@@ -45,33 +45,33 @@ const fetchDataAndRender = async (url) => {
 
 const getLatestNews = async () => {
    //async-await함수
-   url = new URL(Url1)
+   url = new URL(Url2)
    fetchDataAndRender(url)
 }
 
 const getNewsByCategory = async (event) => {
    const category = event.target.textContent.toLowerCase()
    console.log('category', category) //카테고리 버튼 이벤트
-   url = new URL(
-      `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
-   )
-
    // url = new URL(
-   //    `https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr&category=${category}`
+   //    `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
    // )
+
+   url = new URL(
+      `https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr&category=${category}`
+   )
 
    await fetchDataAndRender(url)
 }
 const getNewsByKeyword = async () => {
    const keyword = document.querySelector('#search-input').value
    console.log('keyword', keyword)
-   url = new URL(
-      `https://newsapi.org/v2/top-headlines?q=${keyword}&country=kr&apiKey=${API_KEY}`
-   )
-
    // url = new URL(
-   //    `https://dazzling-peony-652d49.netlify.app/top-headlines?q=${keyword}&country=kr`
+   //    `https://newsapi.org/v2/top-headlines?q=${keyword}&country=kr&apiKey=${API_KEY}`
    // )
+
+   url = new URL(
+      `https://dazzling-peony-652d49.netlify.app/top-headlines?q=${keyword}&country=kr`
+   )
 
    await fetchDataAndRender(url)
 }
