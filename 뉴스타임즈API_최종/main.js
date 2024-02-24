@@ -168,9 +168,9 @@ const paginationRender = () => {
    lastPage = pageGroup * 5
    if (lastPage > totalPages) {
       // 마지막 그룹이 5개 이하
-      last = totalPages
+      lastPage = totalPages
    }
-   firstPage = last - 4 <= 0 ? 1 : last - 4 // 첫그룹이 5이하
+   firstPage = lastPage - 4 <= 0 ? 1 : lastPage - 4 // 첫그룹이 5이하
 
    document.querySelector('.pagination').innerHTML = paginationHTML
 
