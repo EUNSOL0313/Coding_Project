@@ -105,6 +105,7 @@
 #input-area {
    display: none;
 }
+
 @media screen and (max-width: 63rem) {
    .hide {
       display: inline;
@@ -112,6 +113,21 @@
    .menus {
       display: none;
    }
+}
+.pagination-nav {
+   display: flex;
+   justify-content: center;
+}
+.pagination {
+   margin-top: 1em;
+}
+.page-item.active .page-link {
+   background-color: black;
+   color: white;
+   border-color: black;
+}
+.page-link {
+   color: black;
 }
 .col-lg-8 {
    margin-top: 1em;
