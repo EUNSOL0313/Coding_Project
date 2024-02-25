@@ -150,6 +150,9 @@
       width: 400px;
       height: 250px;
    }
+   .head__banner {
+      display: none;
+   }
 }
 .pagination-nav {
    display: flex;
