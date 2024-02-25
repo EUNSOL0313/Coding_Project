@@ -9,6 +9,12 @@ console.log('mmm', menus)
 menus.forEach((menu) =>
    menu.addEventListener('click', (e) => getNewsByCategory(e))
 )
+//사이드메뉴 카테고리 이벤트
+const sideMenuList = document.querySelectorAll('.side-menu-list button')
+console.log('sidemenu', sideMenuList)
+sideMenuList.forEach((menu) =>
+   menu.addEventListener('click', (e) => getNewsByCategory(e))
+)
 
 let totalResults = 0
 let page = 1
@@ -19,16 +25,16 @@ const groupSize = 5 //고정값
 const logoClick = document.querySelector('#logo')
 logoClick.addEventListener('click', () => getLatestNews())
 
-const fetchDataAndRender = async (url) => {
+const fetchDataAndRender = async () => {
    try {
       url.searchParams.set('page', page)
       url.searchParams.set('pageSize', pageSize)
       const response = await fetch(url)
+
       const data = await response.json()
       if (response.status === 200) {
          if (data.articles.length === 0) {
             console.log('aaa', data)
-            paginationRender()
             throw new Error('No matches for your search')
          }
          console.log('bbb', data)
@@ -37,21 +43,19 @@ const fetchDataAndRender = async (url) => {
          render()
          paginationRender()
       } else {
-         paginationRender()
          throw new Error(data.message)
       }
    } catch (error) {
-      console.log('Error fetching data:', error)
+      //console.log('Error fetching data:', error)
       errorRender(error.message)
-      paginationRender()
    }
 }
 
-const getLatestNews = async (url) => {
+const getLatestNews = async () => {
    //async-await함수
    page = 1 //새로운거 서치마다 1로 리셋
    url = new URL(Url2)
-   fetchDataAndRender(url)
+   fetchDataAndRender()
 }
 
 const getNewsByCategory = async (e) => {
@@ -66,7 +70,7 @@ const getNewsByCategory = async (e) => {
       `https://dazzling-peony-652d49.netlify.app/top-headlines?country=kr&category=${category}`
    )
 
-   await fetchDataAndRender(url)
+   await fetchDataAndRender()
 }
 const getNewsByKeyword = async (e) => {
    //const keyword = document.querySelector('#search-input').value
@@ -136,8 +140,6 @@ const errorRender = (errorMessage) => {
 }
 
 const paginationRender = () => {
-   let paginationHTML = ``
-
    //totalPages
    const totalPages = Math.ceil(totalResults / pageSize)
 
@@ -152,8 +154,9 @@ const paginationRender = () => {
    } //마지막 페이지 그룹이 그룹사이즈보다 작을때
 
    //firstPage
-   let firstPage =
-      lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1)
+   const firstPage =
+      lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1) // 첫그룹이 5이하
+   let paginationHTML = ``
    if (firstPage > 1) {
       paginationHTML = `<li class="page-item" onclick="moveToPage(1)">
             <a class="page-link" href="#" aria-label="Previous">
@@ -164,6 +167,7 @@ const paginationRender = () => {
             <a class="page-link" href='#'>&lt;</a>
             </li>`
    }
+
    for (let i = firstPage; i <= lastPage; i++) {
       paginationHTML += `<li class="page-item ${
          i == page ? 'active' : ''
@@ -179,12 +183,6 @@ const paginationRender = () => {
                         <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                        </li>`
    }
-   lastPage = pageGroup * 5
-   if (lastPage > totalPages) {
-      // 마지막 그룹이 5개 이하
-      lastPage = totalPages
-   }
-   firstPage = lastPage - 4 <= 0 ? 1 : lastPage - 4 // 첫그룹이 5이하
 
    document.querySelector('.pagination').innerHTML = paginationHTML
 }
@@ -193,7 +191,7 @@ const moveToPage = (pageNum) => {
    console.log('movetopage', pageNum) // url 호출을 해야함
    page = pageNum //pageNum 따라서 유동적인 값이 됨
 
-   fetchDataAndRender(url)
+   fetchDataAndRender()
 }
 
 const openNav = () => {

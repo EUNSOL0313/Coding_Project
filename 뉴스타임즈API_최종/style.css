@@ -46,6 +46,7 @@
 .menus button:hover {
    background-color: beige;
 }
+
 .news-img-size {
    max-width: 100%;
    max-height: 250px;
@@ -121,7 +122,7 @@
       margin-bottom: 1em;
    }
    .head-line svg {
-      width: 300px;
+      width: 260px;
    }
 }
 .pagination-nav {
@@ -139,6 +140,7 @@
 .page-link {
    color: black;
 }
+
 .col-lg-8 {
    margin-top: 1em;
 }
