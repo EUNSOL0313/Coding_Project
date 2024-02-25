@@ -26,6 +26,10 @@
 .head-line svg {
    width: 430px;
 }
+.logobtn {
+   border: none;
+   background: none;
+}
 .menus {
    margin-top: 1em;
    display: flex;
@@ -58,7 +62,7 @@
    z-index: 1;
    top: 0;
    left: 0;
-   background-color: blanchedalmond;
+   background-color: rgb(207, 204, 199);
    overflow-x: hidden;
    transition: 0.5s;
    padding-top: 60px;
@@ -112,6 +116,12 @@
    }
    .menus {
       display: none;
+   }
+   .head-line-section {
+      margin-bottom: 1em;
+   }
+   .head-line svg {
+      width: 300px;
    }
 }
 .pagination-nav {

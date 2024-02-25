@@ -7,13 +7,17 @@ let newsList = [] //전역변수로 선언 후 아래 함수에서는 재할당�
 const menus = document.querySelectorAll('.menus button') // 버튼 이벤트 카테고리
 console.log('mmm', menus)
 menus.forEach((menu) =>
-   menu.addEventListener('click', (event) => getNewsByCategory(event))
+   menu.addEventListener('click', (e) => getNewsByCategory(e))
 )
 
 let totalResults = 0
 let page = 1
 const pageSize = 10 //고정값
 const groupSize = 5 //고정값
+
+//로고누르면 첫화면
+const logoClick = document.querySelector('#logo')
+logoClick.addEventListener('click', () => getLatestNews())
 
 const fetchDataAndRender = async (url) => {
    try {
@@ -43,15 +47,17 @@ const fetchDataAndRender = async (url) => {
    }
 }
 
-const getLatestNews = async () => {
+const getLatestNews = async (url) => {
    //async-await함수
+   page = 1 //새로운거 서치마다 1로 리셋
    url = new URL(Url2)
    fetchDataAndRender(url)
 }
 
-const getNewsByCategory = async (event) => {
-   const category = event.target.textContent.toLowerCase()
-   console.log('category', category) //카테고리 버튼 이벤트
+const getNewsByCategory = async (e) => {
+   const category = e.target.textContent.toLowerCase()
+   page = 1
+   // console.log('category', category) //카테고리 버튼 이벤트
    // url = new URL(
    //    `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
    // )
@@ -62,9 +68,11 @@ const getNewsByCategory = async (event) => {
 
    await fetchDataAndRender(url)
 }
-const getNewsByKeyword = async () => {
-   const keyword = document.querySelector('#search-input').value
+const getNewsByKeyword = async (e) => {
+   //const keyword = document.querySelector('#search-input').value
+   const keyword = e.target.value
    console.log('keyword', keyword)
+   page = 1
    // url = new URL(
    //    `https://newsapi.org/v2/top-headlines?q=${keyword}&country=kr&apiKey=${API_KEY}`
    // )
@@ -76,10 +84,16 @@ const getNewsByKeyword = async () => {
    await fetchDataAndRender(url)
 }
 
+const searchInput = document.querySelector('#search-input')
+searchInput.addEventListener('keyup', (e) => getNewsByKeyword(e))
+
 const openSearchBox = () => {
    let inputArea = document.getElementById('input-area')
-   inputArea.style.display =
-      inputArea.style.display === 'inline' ? 'none' : 'inline'
+   if (inputArea.style.display === 'inline') {
+      inputArea.style.display = 'none'
+   } else {
+      inputArea.style.display = 'inline'
+   }
 }
 
 const render = () => {
@@ -173,24 +187,6 @@ const paginationRender = () => {
    firstPage = lastPage - 4 <= 0 ? 1 : lastPage - 4 // 첫그룹이 5이하
 
    document.querySelector('.pagination').innerHTML = paginationHTML
-
-   //    <nav aria-label="Page navigation example">
-   //   <ul class="pagination">
-   //     <li class="page-item">
-   //       <a class="page-link" href="#" aria-label="Previous">
-   //         <span aria-hidden="true">&laquo;</span>
-   //       </a>
-   //     </li>
-   //     <li class="page-item"><a class="page-link" href="#">1</a></li>
-   //     <li class="page-item"><a class="page-link" href="#">2</a></li>
-   //     <li class="page-item"><a class="page-link" href="#">3</a></li>
-   //     <li class="page-item">
-   //       <a class="page-link" href="#" aria-label="Next">
-   //         <span aria-hidden="true">&raquo;</span>
-   //       </a>
-   //     </li>
-   //   </ul>
-   // </nav>
 }
 
 const moveToPage = (pageNum) => {
